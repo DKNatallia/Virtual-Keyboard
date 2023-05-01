@@ -111,7 +111,7 @@ const specialKeysDictonary = {
   39: "►",
   40: "▼",
   17: "Ctrl",
-  18: "Alt"
+  18: "Alt",
 };
 
 const input = document.createElement("input");
@@ -179,13 +179,11 @@ const keysArrRow3 = [20, 65, 83, 68, 70, 71, 72, 74, 75, 76, 59, 13];
 const keysArrRow4 = [16, 90, 88, 67, 86, 66, 78, 77, 188, 190, 191, 38, 16];
 const keysArrRow5 = [17, 18, 32, 17, 18, 37, 40, 39];
 
-const keyboardRow1 = keysArrRow1.map((value) => createButton(value)); // [button, button, button]
-const keyboardRow2 = keysArrRow2.map((value) => createButton(value)); // [button, button, button]
-const keyboardRow3 = keysArrRow3.map((value) => createButton(value)); // [button, button, button]
-const keyboardRow4 = keysArrRow4.map((value) => createButton(value)); // [button, button, button]
-const keyboardRow5 = keysArrRow5.map((value) => createButton(value)); // [button, button, button]
-// keyboard.forEach((button) => row5.appendChild(button));
-// body.appendChild(row5);
+const keyboardRow1 = keysArrRow1.map((value) => createButton(value));
+const keyboardRow2 = keysArrRow2.map((value) => createButton(value));
+const keyboardRow3 = keysArrRow3.map((value) => createButton(value));
+const keyboardRow4 = keysArrRow4.map((value) => createButton(value));
+const keyboardRow5 = keysArrRow5.map((value) => createButton(value));
 
 const keyboard = [
   keyboardRow1,
@@ -201,8 +199,6 @@ keyboard.forEach((keyboardRow, index) => {
 });
 
 const eventListener = (event) => {
-  console.log("e-turbo", event);
-
   if (event.keyCode === 8) {
     input.value = input.value.slice(0, -1);
     return;
@@ -211,8 +207,18 @@ const eventListener = (event) => {
     input.value = input.value + " " + " " + " ";
     return;
   }
-  if (event.key === "Ctrl"  || event.key === "Alt" ||  event.key === "Shift"  || event.key === "Tab" || event.key === "Capslock" ||  event.key=== "◄",
- "▲" ||  event.key===  "►", event.key=== "▼") {
+
+  if (
+    event.key === "Control" ||
+    event.key === "Alt" ||
+    event.key === "Shift" ||
+    event.key === "Tab" ||
+    event.key === "Capslock" ||
+    event.key === "ArrowLeft" ||
+    event.key === "ArrowUp" ||
+    event.key === "ArrowRight" ||
+    event.key === "ArrowDown"
+  ) {
     return;
   }
   input.value = input.value + event.key;
@@ -225,9 +231,6 @@ body.addEventListener("keydown", eventListener);
 let language = "en";
 body.className = language;
 document.addEventListener("keydown", (e) => {
-  console.log("ctrlKey", e.ctrlKey);
-  console.log("altKey", e.altKey);
-
   if (e.ctrlKey && e.altKey) {
     language = language === "ru" ? "en" : "ru";
     body.className = language;
